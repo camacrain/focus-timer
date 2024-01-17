@@ -1,0 +1,19 @@
+.container {
+  background-color: #0B0C0D;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hiddenContainer {
+  opacity: 0;
+}
+
+body {
+  background-color: #0B0C0D;
+}
