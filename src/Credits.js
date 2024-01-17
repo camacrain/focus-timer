@@ -18,7 +18,7 @@ function Credits() {
     }
 
     return (
-        <p className={`${styles.credits} ${hasClickedTipLink ? styles.hiddenCredits : ''}`}>Like it? Help me make my first bucks on <a href='https://focustimer.xyz/' target='_blank' onClick={() => saveHasClickedLink()}>Gumroad</a>!</p>
+        <p className={`${styles.credits} ${hasClickedTipLink ? styles.hiddenCredits : ''}`}>Like it? Help me make my first bucks on <a href='https://camcrain.gumroad.com/l/focustimer' target='_blank' onClick={() => saveHasClickedLink()}>Gumroad</a>!</p>
     )
 }
 
