@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import styles from './App.module.css';
+import TimerContainer from './TimerContainer.js';
+import Credits from './Credits.js';
 
 function App() {
+  const [isHidden, setIsHidden] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsHidden(false);
+    }, 500);
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`${styles.container} ${isHidden ? styles.hiddenContainer : ''}`}>
+      <TimerContainer />
+      <Credits />
     </div>
   );
 }
