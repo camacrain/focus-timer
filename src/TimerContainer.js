@@ -95,6 +95,40 @@ function TimerContainer() {
         }
     }, [timeLeft]);
 
+    useEffect(() => {
+        // Decrement timeLeft once a second while timerIsOn and send a notification when timeLeft reaches 0
+        if (timerIsOn) {
+            const worker = new Worker(process.env.PUBLIC_URL + '/worker.js');
+
+            worker.onmessage = (e) => {
+                setTimeLeft(prev => {
+                    const newTime = prev - 1;
+
+                    if (prev > 1) {
+                        return newTime;
+                    } else {
+                        if (inWorkPhase) { 
+                            sendRestNotification(); 
+                        } else {
+                            sendWorkNotification(); 
+                        }
+
+                        togglePhase();
+                    }
+                });
+            };
+
+            worker.postMessage('start');
+
+            return () => worker.terminate();
+        }
+    }, [timerIsOn]);
+
+    useEffect(() => {
+        // Request permissions when timer starts if they haven't been requested before
+        if (timerIsOn && !permissionsWereRequested) { requestPermissions(); console.log('requested'); };
+    }, [timerIsOn]);
+
     const requestPermissions = () => {
         if ('Notification' in window) {
             Notification.requestPermission().then(function(result) {
@@ -125,36 +159,6 @@ function TimerContainer() {
 
         chime.play();
     };
-
-    useEffect(() => {
-        // Decrement timeLeft once a second while timerIsOn
-        if (timerIsOn) {
-            const interval = setInterval(() => {
-                setTimeLeft(prev => {
-                    const newTime = prev - 1;
-
-                    if (prev > 1) {
-                        return newTime;
-                    } else {
-                        if (inWorkPhase) { 
-                            sendRestNotification(); 
-                        } else {
-                            sendWorkNotification(); 
-                        }
-
-                        togglePhase();
-                    }
-                });
-            }, 1000);
-    
-            return () => clearInterval(interval);
-        }
-    }, [timerIsOn]);
-
-    useEffect(() => {
-        // Request permissions when timer starts if they haven't been requested before
-        if (timerIsOn && !permissionsWereRequested) { requestPermissions(); console.log('requested'); };
-    }, [timerIsOn]);
 
     useEffect(() => {
         // Toggle showTime on and off when setting times to show that they are being set
