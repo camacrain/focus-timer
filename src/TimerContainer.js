@@ -232,7 +232,11 @@ function TimerContainer() {
 
         setWorkTime(prevWorkTime => {
             setRestTime(prevRestTime => {
-                setTimeLeft(inWorkPhase ? prevWorkTime : prevRestTime);
+                setInWorkPhase(prevInWorkPhase => {
+                    setTimeLeft(prevInWorkPhase ? prevWorkTime : prevRestTime);
+                    return prevInWorkPhase;
+                });
+                
                 return prevRestTime;
             });
 
@@ -245,13 +249,7 @@ function TimerContainer() {
             setWorkTime(prevWorkTime => {
                 setRestTime(prevRestTime => {
                     setInSettingsMode(prevInSettingsMode => {
-                        if (!prevInSettingsMode) {
-                            setTimerIsOn(false);
-                            setPaused(false);
-                            changeButtonFunction(setLeftButtonFunction, 'toggleSettingsMode');
-                            changeButtonFunction(setCenterButtonFunction, 'startTimer');
-                        }
-
+                        if (!prevInSettingsMode) { stopTimer(); }
                         setTimeLeft(!prevInWorkPhase ? prevWorkTime : prevRestTime);
                         setWorkIndicator(!prevInWorkPhase ? workOnIndicator : workOffIndicator);
                         setRestIndicator(!prevInWorkPhase ? restOffIndicator : restOnIndicator);
@@ -269,13 +267,14 @@ function TimerContainer() {
     };
 
     const toggleSettingsMode = () => {
-        setInSettingsMode(prev => {
-            const newValue = !prev;
+        setInSettingsMode(prevInSettingsMode => {
+            const newValue = !prevInSettingsMode;
 
             if (newValue) {
-                // setInWorkPhase(prev => {
-                //     if (!prev) { togglePhase(); };
-                // });
+                setInWorkPhase(prevInWorkPhase => {
+                    if (!prevInWorkPhase) { togglePhase(); };
+                    return prevInWorkPhase;
+                });
                 changeButtonFunction(setLeftButtonFunction, 'decreaseTimeSetting');
                 changeButtonFunction(setCenterButtonFunction, 'acceptWorkTime');
                 changeButtonFunction(setRightButtonFunction, 'increaseTimeSetting');
@@ -339,6 +338,7 @@ function TimerContainer() {
     const acceptWorkTime = () => {
         togglePhase();
         changeButtonFunction(setCenterButtonFunction, 'acceptRestTime');
+        //toggleSettingsMode();
     };
 
     const acceptRestTime = () => {
