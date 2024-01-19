@@ -54,15 +54,23 @@ function TimerContainer() {
         changeButtonFunction(setCenterButtonFunction, 'startTimer');
         changeButtonFunction(setRightButtonFunction, 'togglePhase');
 
-        //Set workTime to value saved in local storage or default value
+        //Set workTime to value saved in local storage or default value and set timeLeft to workTime
         const savedWorkTime = parseInt(localStorage.getItem('workTime'));
-        if (isNaN(savedWorkTime)) { setWorkTime(defaultWorkTime); } 
-        else { setWorkTime(savedWorkTime); }
+        if (isNaN(savedWorkTime)) { 
+            setWorkTime(defaultWorkTime); 
+            setTimeLeft(defaultWorkTime);
+        } else { 
+            setWorkTime(savedWorkTime); 
+            setTimeLeft(savedWorkTime);
+        }
 
         //Set restTime to value saved in local storage or default value
         const savedRestTime = parseInt(localStorage.getItem('restTime'));
-        if (isNaN(savedRestTime)) { setRestTime(defaultRestTime); } 
-        else { setRestTime(savedRestTime); }
+        if (isNaN(savedRestTime)) { 
+            setRestTime(defaultRestTime); 
+        } else { 
+            setRestTime(savedRestTime); 
+        }
 
         // Check if there's a saved value for permissionsWereRequested and set it if so
         const savedPermissionsWereRequested = localStorage.getItem('permissionsWereRequested');
@@ -275,10 +283,12 @@ function TimerContainer() {
                     if (!prevInWorkPhase) { togglePhase(); };
                     return prevInWorkPhase;
                 });
+
                 changeButtonFunction(setLeftButtonFunction, 'decreaseTimeSetting');
                 changeButtonFunction(setCenterButtonFunction, 'acceptWorkTime');
                 changeButtonFunction(setRightButtonFunction, 'increaseTimeSetting');
             } else {
+                togglePhase();
                 changeButtonFunction(setLeftButtonFunction, 'toggleSettingsMode');
                 changeButtonFunction(setCenterButtonFunction, 'startTimer');
                 changeButtonFunction(setRightButtonFunction, 'togglePhase');
@@ -309,7 +319,6 @@ function TimerContainer() {
 
             return prevInWorkPhase;
         })
-        
     };
 
     const decreaseTimeSetting = () => {
@@ -338,22 +347,18 @@ function TimerContainer() {
     const acceptWorkTime = () => {
         togglePhase();
         changeButtonFunction(setCenterButtonFunction, 'acceptRestTime');
-        //toggleSettingsMode();
     };
 
     const acceptRestTime = () => {
         toggleSettingsMode();
-        togglePhase();
     };
 
     const saveWorkTime = () => {
         localStorage.setItem('workTime', workTime);
-        if (inWorkPhase) { setTimeLeft(workTime); }
     };
 
     const saveRestTime = () => {
         localStorage.setItem('restTime', restTime);
-        if (!inWorkPhase) { setTimeLeft(restTime); }
     };
 
     const toggleLeftButtonIsPressed = () => {
@@ -396,6 +401,14 @@ function TimerContainer() {
 
         if (buttonFunctions[functionName]) {
             setButtonFunction(() => buttonFunctions[functionName]);
+
+            if (setButtonFunction === setLeftButtonFunction) {
+                console.log("set leftButtonFunction to " + functionName);
+            } else if (setButtonFunction === setCenterButtonFunction) {
+                console.log("set centerButtonFunction to " + functionName);
+            } else {
+                console.log("set rightButtonFunction to " + functionName);
+            }
         } else {
             console.error(`Function ${functionName} not found.`);
         }
