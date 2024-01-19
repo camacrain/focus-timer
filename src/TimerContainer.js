@@ -38,9 +38,6 @@ function TimerContainer() {
     const [leftButtonIsPressed, setLeftButtonIsPressed] = useState(false);
     const [centerButtonIsPressed, setCenterButtonIsPressed] = useState(false);
     const [rightButtonIsPressed, setRightButtonIsPressed] = useState(false);
-    // const [settingsIconIsVisible, setSettingsIconIsVisible] = useState(true);
-    // const [stopIconIsVisible, setStopIconIsVisible] = useState(false);
-    // const [decreaseIconIsVisible, setDecreaseIconIsVisible] = useState(false);
     const [permissionsWereRequested, setPermissionsWereRequested] = useState(false);
     const defaultWorkTime = 1500;
     const defaultRestTime = 300;
@@ -156,7 +153,6 @@ function TimerContainer() {
         navigator.permissions.query({name:'notifications'}).then(function(permissionStatus) {
             if (permissionStatus.state === 'granted') {
                 new Notification("Break time?");
-                
             }
         });
 
@@ -410,35 +406,6 @@ function TimerContainer() {
         }
     };
 
-    // useEffect(() => {
-    //     updateLeftButtonIconVisibility();
-    //     // console.log('leftButtonFunction: ' + (leftButtonFunction ? leftButtonFunction.name : null));
-    //     // console.log('settingsIconIsVisible: ' + settingsIconIsVisible);
-    //     // console.log('stopIconIsVisible: ' + stopIconIsVisible);
-    //     // console.log('decreaseIconIsVisible: ' + decreaseIconIsVisible);
-    // }, [leftButtonFunction]);
-
-    // const updateLeftButtonIconVisibility = () => {
-    //     setLeftButtonFunction(prev => {
-    //         console.log(prev.name);
-    //         if (prev === toggleSettingsMode) {
-    //             setSettingsIconIsVisible(true);
-    //             setStopIconIsVisible(false);
-    //             setDecreaseIconIsVisible(false);
-    //         } else if (prev === stopTimer) {
-    //             setSettingsIconIsVisible(false);
-    //             setStopIconIsVisible(true);
-    //             setDecreaseIconIsVisible(false);
-    //         } else if (prev === decreaseTimeSetting) {
-    //             setSettingsIconIsVisible(false);
-    //             setStopIconIsVisible(false);
-    //             setDecreaseIconIsVisible(true);
-    //         }
-
-    //         return prev;
-    //     });
-    // };
-
     return (
         <Timer 
             firstDigit={firstDigit} 
@@ -458,11 +425,6 @@ function TimerContainer() {
             handleRightButtonPress={toggleRightButtonIsPressed}
             rightButtonIsPressed={rightButtonIsPressed}
             rightButtonFunction={rightButtonFunction}
-            // settingsIconIsVisible={settingsIconIsVisible}
-            // stopIconIsVisible={stopIconIsVisible}
-            // decreaseIconIsVisible={decreaseIconIsVisible}
-            paused={paused}
-            inSettingsMode={inSettingsMode}
             toggleSettingsMode={toggleSettingsMode}
             stopTimer={stopTimer}
             decreaseTimeSetting={decreaseTimeSetting}
