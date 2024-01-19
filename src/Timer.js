@@ -78,12 +78,22 @@ function Timer(props) {
 
             <div className={styles.buttons}>
                 <button 
-                    className={`${styles.leftButton} ${styles.button} ${props.leftButtonIsPressed ? styles.pressedButton : ''}`} 
+                    className={`
+                        ${styles.leftButton} 
+                        ${styles.button} 
+                        ${props.leftButtonIsPressed ? styles.pressedButton : ''}
+                    `} 
                     onClick={props.handleLeftButtonClick} 
                     onMouseDown={props.handleLeftButtonPress} 
                     onMouseUp={props.handleLeftButtonPress}
                 >
-                    <img className={`${styles.buttonIcon} ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === 'toggleSettingsMode' ? styles.pressedButtonIcon : ''} ${props.leftButtonFunction && props.leftButtonFunction.name !== 'toggleSettingsMode' ? styles.hiddenButtonIcon : ''}`} src={settingsIcon} />
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === props.toggleSettingsModeFunction.name ? styles.pressedButtonIcon : ''} 
+                            ${props.leftButtonFunction && props.leftButtonFunction.name !== props.toggleSettingsModeFunction.name ? styles.hiddenButtonIcon : ''}
+                        `} 
+                        src={settingsIcon} 
+                    />
                     <img className={`${styles.buttonIcon} ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === 'stopTimer' ? styles.pressedButtonIcon : ''} ${props.leftButtonFunction && props.leftButtonFunction.name !== 'stopTimer' ? styles.hiddenButtonIcon : ''}`} src={stopIcon} />
                     <img className={`${styles.buttonIcon} ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === 'decreaseTimeSetting' ? styles.pressedButtonIcon : ''} ${props.leftButtonFunction && props.leftButtonFunction.name !== 'decreaseTimeSetting' ? styles.hiddenButtonIcon : ''}`} src={decreaseIcon} />
                 </button>

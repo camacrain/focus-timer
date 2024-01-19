@@ -436,6 +436,7 @@ function TimerContainer() {
             rightButtonFunction={rightButtonFunction}
             paused={paused}
             inSettingsMode={inSettingsMode}
+            toggleSettingsModeFunction={toggleSettingsMode}
         />
     );
 };
