@@ -11,35 +11,30 @@ import increaseIcon from './images/increase.png';
 import decreaseIcon from './images/decrease.png';
 
 function Timer(props) {
-//     useEffect(() => {
-//         console.log(`Left Button Function: ${props.leftButtonFunction ? props.leftButtonFunction.name : null}
-// Center Button Function: ${props.centerButtonFunction ? props.centerButtonFunction.name : null}
-// Right Button Function: ${props.rightButtonFunction ? props.rightButtonFunction.name : null}`)
-//     }, []);
 
-    useEffect(() => {
-        console.log(`props.leftButtonFunction: ${props.leftButtonFunction ? props.leftButtonFunction.name : null}`)
-    }, [props.leftButtonFunction]);
+    // useEffect(() => {
+    //     console.log(`props.leftButtonFunction: ${props.leftButtonFunction ? props.leftButtonFunction.name : null}`)
+    // }, [props.leftButtonFunction]);
 
-    useEffect(() => {
-        console.log(`props.centerButtonFunction: ${props.centerButtonFunction ? props.centerButtonFunction.name : null}`)
-    }, [props.centerButtonFunction]);
+    // useEffect(() => {
+    //     console.log(`props.centerButtonFunction: ${props.centerButtonFunction ? props.centerButtonFunction.name : null}`)
+    // }, [props.centerButtonFunction]);
 
-    useEffect(() => {
-        console.log(`props.rightButtonFunction: ${props.rightButtonFunction ? props.rightButtonFunction.name : null}`)
-    }, [props.rightButtonFunction]);
+    // useEffect(() => {
+    //     console.log(`props.rightButtonFunction: ${props.rightButtonFunction ? props.rightButtonFunction.name : null}`)
+    // }, [props.rightButtonFunction]);
 
-    useEffect(() => {
-        console.log(`props.leftButtonIsPressed: ${props.leftButtonIsPressed !== null ? props.leftButtonIsPressed : null}`)
-    }, [props.leftButtonIsPressed]);
+    // useEffect(() => {
+    //     console.log(`props.leftButtonIsPressed: ${props.leftButtonIsPressed !== null ? props.leftButtonIsPressed : null}`)
+    // }, [props.leftButtonIsPressed]);
 
-    useEffect(() => {
-        console.log(`props.centerButtonIsPressed: ${props.centerButtonIsPressed !== null ? props.centerButtonIsPressed : null}`)
-    }, [props.centerButtonIsPressed]);
+    // useEffect(() => {
+    //     console.log(`props.centerButtonIsPressed: ${props.centerButtonIsPressed !== null ? props.centerButtonIsPressed : null}`)
+    // }, [props.centerButtonIsPressed]);
 
-    useEffect(() => {
-        console.log(`props.rightButtonIsPressed: ${props.rightButtonIsPressed !== null ? props.rightButtonIsPressed : null}`)
-    }, [props.rightButtonIsPressed]);
+    // useEffect(() => {
+    //     console.log(`props.rightButtonIsPressed: ${props.rightButtonIsPressed !== null ? props.rightButtonIsPressed : null}`)
+    // }, [props.rightButtonIsPressed]);
 
     return (
         <div className={styles.base}>
@@ -89,13 +84,27 @@ function Timer(props) {
                 >
                     <img className={`
                             ${styles.buttonIcon} 
-                            ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === props.toggleSettingsModeFunction.name ? styles.pressedButtonIcon : ''} 
-                            ${props.leftButtonFunction && props.leftButtonFunction.name !== props.toggleSettingsModeFunction.name ? styles.hiddenButtonIcon : ''}
-                        `} 
+                            ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === props.toggleSettingsMode.name ? styles.pressedButtonIcon : ''} 
+                            ${props.leftButtonFunction && props.leftButtonFunction.name === props.toggleSettingsMode.name ? '' : styles.hiddenButtonIcon}
+                        `}
                         src={settingsIcon} 
                     />
-                    <img className={`${styles.buttonIcon} ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === 'stopTimer' ? styles.pressedButtonIcon : ''} ${props.leftButtonFunction && props.leftButtonFunction.name !== 'stopTimer' ? styles.hiddenButtonIcon : ''}`} src={stopIcon} />
-                    <img className={`${styles.buttonIcon} ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === 'decreaseTimeSetting' ? styles.pressedButtonIcon : ''} ${props.leftButtonFunction && props.leftButtonFunction.name !== 'decreaseTimeSetting' ? styles.hiddenButtonIcon : ''}`} src={decreaseIcon} />
+
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === props.stopTimer.name ? styles.pressedButtonIcon : ''} 
+                            ${props.leftButtonFunction && props.leftButtonFunction.name === props.stopTimer.name ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={stopIcon} 
+                    />
+
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.leftButtonIsPressed && props.leftButtonFunction && props.leftButtonFunction.name === props.decreaseTimeSetting.name ? styles.pressedButtonIcon : ''} 
+                            ${props.leftButtonFunction && props.leftButtonFunction.name === props.decreaseTimeSetting.name ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={decreaseIcon} 
+                    />
                 </button>
 
                 <button 
@@ -104,10 +113,29 @@ function Timer(props) {
                     onMouseDown={props.handleCenterButtonPress} 
                     onMouseUp={props.handleCenterButtonPress}
                 >   
-                    <img className={`${styles.buttonIcon} ${props.centerButtonIsPressed && props.centerButtonFunction && props.centerButtonFunction.name === 'startTimer' ? styles.pressedButtonIcon : ''} ${props.centerButtonFunction && props.centerButtonFunction.name !== 'startTimer' ? styles.hiddenButtonIcon : ''}`} src={playIcon} />
-                    <img className={`${styles.buttonIcon} ${props.centerButtonIsPressed && props.centerButtonFunction && props.centerButtonFunction.name === 'pauseTimer' ? styles.pressedButtonIcon : ''} ${props.centerButtonFunction && props.centerButtonFunction.name !== 'pauseTimer' ? styles.hiddenButtonIcon : ''}`} src={pauseIcon} />
-                    <img className={`${styles.buttonIcon} ${props.centerButtonIsPressed && props.centerButtonFunction && props.centerButtonFunction.name === ('acceptWorkTime' || 'acceptRestTime') ? styles.pressedButtonIcon : ''} ${props.centerButtonFunction && (props.centerButtonFunction.name !== 'acceptWorkTime' && props.centerButtonFunction.name !== 'acceptRestTime') ? styles.hiddenButtonIcon : ''}`} src={acceptIcon} />
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.centerButtonIsPressed && props.centerButtonFunction && props.centerButtonFunction.name === props.startTimer.name ? styles.pressedButtonIcon : ''} 
+                            ${props.centerButtonFunction && props.centerButtonFunction.name === props.startTimer.name ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={playIcon} 
+                    />
+
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.centerButtonIsPressed && props.centerButtonFunction && props.centerButtonFunction.name === props.pauseTimer.name ? styles.pressedButtonIcon : ''} 
+                            ${props.centerButtonFunction && props.centerButtonFunction.name === props.pauseTimer.name ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={pauseIcon} 
+                    />
                     
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.centerButtonIsPressed && props.centerButtonFunction && (props.centerButtonFunction.name === props.acceptWorkTime.name || props.centerButtonFunction.name === props.acceptRestTime.name) ? styles.pressedButtonIcon : ''} 
+                            ${props.centerButtonFunction && (props.centerButtonFunction.name === props.acceptWorkTime.name || props.centerButtonFunction.name === props.acceptRestTime.name) ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={acceptIcon} 
+                    />
                 </button>
 
                 <button 
@@ -116,8 +144,21 @@ function Timer(props) {
                     onMouseDown={props.handleRightButtonPress} 
                     onMouseUp={props.handleRightButtonPress}
                 >
-                    <img className={`${styles.buttonIcon} ${props.rightButtonIsPressed && props.rightButtonFunction && props.rightButtonFunction.name === 'togglePhase' ? styles.pressedButtonIcon : ''} ${props.rightButtonFunction && props.rightButtonFunction.name !== 'togglePhase' ? styles.hiddenButtonIcon : ''}`} src={togglePhaseIcon} />
-                    <img className={`${styles.buttonIcon} ${props.rightButtonIsPressed && props.rightButtonFunction && props.rightButtonFunction.name === 'increaseTimeSetting' ? styles.pressedButtonIcon : ''} ${props.rightButtonFunction && props.rightButtonFunction.name !== 'increaseTimeSetting' ? styles.hiddenButtonIcon : ''}`} src={increaseIcon} />
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.rightButtonIsPressed && props.rightButtonFunction && props.rightButtonFunction.name === props.togglePhase.name ? styles.pressedButtonIcon : ''} 
+                            ${props.rightButtonFunction && props.rightButtonFunction.name === props.togglePhase.name ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={togglePhaseIcon} 
+                    />
+
+                    <img className={`
+                            ${styles.buttonIcon} 
+                            ${props.rightButtonIsPressed && props.rightButtonFunction && props.rightButtonFunction.name === props.increaseTimeSetting.name ? styles.pressedButtonIcon : ''} 
+                            ${props.rightButtonFunction && props.rightButtonFunction.name === props.increaseTimeSetting.name ? '' : styles.hiddenButtonIcon}
+                        `}
+                        src={increaseIcon} 
+                    />
                 </button>
             </div>
         </div>

@@ -38,6 +38,9 @@ function TimerContainer() {
     const [leftButtonIsPressed, setLeftButtonIsPressed] = useState(false);
     const [centerButtonIsPressed, setCenterButtonIsPressed] = useState(false);
     const [rightButtonIsPressed, setRightButtonIsPressed] = useState(false);
+    // const [settingsIconIsVisible, setSettingsIconIsVisible] = useState(true);
+    // const [stopIconIsVisible, setStopIconIsVisible] = useState(false);
+    // const [decreaseIconIsVisible, setDecreaseIconIsVisible] = useState(false);
     const [permissionsWereRequested, setPermissionsWereRequested] = useState(false);
     const defaultWorkTime = 1500;
     const defaultRestTime = 300;
@@ -402,18 +405,39 @@ function TimerContainer() {
 
         if (buttonFunctions[functionName]) {
             setButtonFunction(() => buttonFunctions[functionName]);
-
-            if (setButtonFunction === setLeftButtonFunction) {
-                console.log("Container set leftButtonFunction to " + functionName);
-            } else if (setButtonFunction === setCenterButtonFunction) {
-                console.log("Container set centerButtonFunction to " + functionName);
-            } else {
-                console.log("Container set rightButtonFunction to " + functionName);
-            }
         } else {
             console.error(`Function ${functionName} not found.`);
         }
     };
+
+    // useEffect(() => {
+    //     updateLeftButtonIconVisibility();
+    //     // console.log('leftButtonFunction: ' + (leftButtonFunction ? leftButtonFunction.name : null));
+    //     // console.log('settingsIconIsVisible: ' + settingsIconIsVisible);
+    //     // console.log('stopIconIsVisible: ' + stopIconIsVisible);
+    //     // console.log('decreaseIconIsVisible: ' + decreaseIconIsVisible);
+    // }, [leftButtonFunction]);
+
+    // const updateLeftButtonIconVisibility = () => {
+    //     setLeftButtonFunction(prev => {
+    //         console.log(prev.name);
+    //         if (prev === toggleSettingsMode) {
+    //             setSettingsIconIsVisible(true);
+    //             setStopIconIsVisible(false);
+    //             setDecreaseIconIsVisible(false);
+    //         } else if (prev === stopTimer) {
+    //             setSettingsIconIsVisible(false);
+    //             setStopIconIsVisible(true);
+    //             setDecreaseIconIsVisible(false);
+    //         } else if (prev === decreaseTimeSetting) {
+    //             setSettingsIconIsVisible(false);
+    //             setStopIconIsVisible(false);
+    //             setDecreaseIconIsVisible(true);
+    //         }
+
+    //         return prev;
+    //     });
+    // };
 
     return (
         <Timer 
@@ -434,9 +458,20 @@ function TimerContainer() {
             handleRightButtonPress={toggleRightButtonIsPressed}
             rightButtonIsPressed={rightButtonIsPressed}
             rightButtonFunction={rightButtonFunction}
+            // settingsIconIsVisible={settingsIconIsVisible}
+            // stopIconIsVisible={stopIconIsVisible}
+            // decreaseIconIsVisible={decreaseIconIsVisible}
             paused={paused}
             inSettingsMode={inSettingsMode}
-            toggleSettingsModeFunction={toggleSettingsMode}
+            toggleSettingsMode={toggleSettingsMode}
+            stopTimer={stopTimer}
+            decreaseTimeSetting={decreaseTimeSetting}
+            startTimer={startTimer}
+            pauseTimer={pauseTimer}
+            acceptRestTime={acceptRestTime}
+            acceptWorkTime={acceptWorkTime}
+            togglePhase={togglePhase}
+            increaseTimeSetting={increaseTimeSetting}
         />
     );
 };
