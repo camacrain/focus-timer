@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styles from './Timer.module.css';
 import colon from './images/colon.png';
 import playIcon from './images/play.png';
@@ -10,6 +11,36 @@ import increaseIcon from './images/increase.png';
 import decreaseIcon from './images/decrease.png';
 
 function Timer(props) {
+//     useEffect(() => {
+//         console.log(`Left Button Function: ${props.leftButtonFunction ? props.leftButtonFunction.name : null}
+// Center Button Function: ${props.centerButtonFunction ? props.centerButtonFunction.name : null}
+// Right Button Function: ${props.rightButtonFunction ? props.rightButtonFunction.name : null}`)
+//     }, []);
+
+    useEffect(() => {
+        console.log(`props.leftButtonFunction: ${props.leftButtonFunction ? props.leftButtonFunction.name : null}`)
+    }, [props.leftButtonFunction]);
+
+    useEffect(() => {
+        console.log(`props.centerButtonFunction: ${props.centerButtonFunction ? props.centerButtonFunction.name : null}`)
+    }, [props.centerButtonFunction]);
+
+    useEffect(() => {
+        console.log(`props.rightButtonFunction: ${props.rightButtonFunction ? props.rightButtonFunction.name : null}`)
+    }, [props.rightButtonFunction]);
+
+    useEffect(() => {
+        console.log(`props.leftButtonIsPressed: ${props.leftButtonIsPressed !== null ? props.leftButtonIsPressed : null}`)
+    }, [props.leftButtonIsPressed]);
+
+    useEffect(() => {
+        console.log(`props.centerButtonIsPressed: ${props.centerButtonIsPressed !== null ? props.centerButtonIsPressed : null}`)
+    }, [props.centerButtonIsPressed]);
+
+    useEffect(() => {
+        console.log(`props.rightButtonIsPressed: ${props.rightButtonIsPressed !== null ? props.rightButtonIsPressed : null}`)
+    }, [props.rightButtonIsPressed]);
+
     return (
         <div className={styles.base}>
             <div className={styles.baseLight}></div>

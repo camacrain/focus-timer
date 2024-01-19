@@ -95,7 +95,8 @@ function TimerContainer() {
     }, [timeLeft]);
 
     useEffect(() => {
-        // Decrement timeLeft once a second while timerIsOn and send a notification when timeLeft reaches 0
+        // Decrement timeLeft once a second while timerIsOn
+        // and send a notification when timeLeft reaches 0
         if (timerIsOn) {
             const worker = new Worker(process.env.PUBLIC_URL + '/worker.js');
 
@@ -403,11 +404,11 @@ function TimerContainer() {
             setButtonFunction(() => buttonFunctions[functionName]);
 
             if (setButtonFunction === setLeftButtonFunction) {
-                console.log("set leftButtonFunction to " + functionName);
+                console.log("Container set leftButtonFunction to " + functionName);
             } else if (setButtonFunction === setCenterButtonFunction) {
-                console.log("set centerButtonFunction to " + functionName);
+                console.log("Container set centerButtonFunction to " + functionName);
             } else {
-                console.log("set rightButtonFunction to " + functionName);
+                console.log("Container set rightButtonFunction to " + functionName);
             }
         } else {
             console.error(`Function ${functionName} not found.`);
