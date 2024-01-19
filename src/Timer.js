@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import styles from './Timer.module.css';
 import colon from './images/colon.png';
 import playIcon from './images/play.png';
