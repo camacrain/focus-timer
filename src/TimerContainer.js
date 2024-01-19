@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Timer from './Timer.js';
 import noDigit from './images/none.png';
 import zeroDigit from './images/zero.png';
@@ -11,19 +11,10 @@ import sixDigit from './images/six.png';
 import sevenDigit from './images/seven.png';
 import eightDigit from './images/eight.png';
 import nineDigit from './images/nine.png';
-import colon from './images/colon.png';
 import workOnIndicator from './images/workOn.png';
 import workOffIndicator from './images/workOff.png';
 import restOnIndicator from './images/restOn.png';
 import restOffIndicator from './images/restOff.png';
-import playIcon from './images/play.png';
-import pauseIcon from './images/pause.png';
-import stopIcon from './images/stop.png';
-import togglePhaseIcon from './images/togglePhase.png';
-import settingsIcon from './images/settings.png';
-import acceptIcon from './images/accept.png';
-import increaseIcon from './images/increase.png';
-import decreaseIcon from './images/decrease.png';
 import notificationSound from './TimerDone.mp3';
 
 function TimerContainer() {
@@ -63,12 +54,12 @@ function TimerContainer() {
         changeButtonFunction(setCenterButtonFunction, 'startTimer');
         changeButtonFunction(setRightButtonFunction, 'togglePhase');
 
-        // Set workTime to value saved in local storage or default value
+        //Set workTime to value saved in local storage or default value
         const savedWorkTime = parseInt(localStorage.getItem('workTime'));
         if (isNaN(savedWorkTime)) { setWorkTime(defaultWorkTime); } 
         else { setWorkTime(savedWorkTime); }
 
-        // Set restTime to value saved in local storage or default value
+        //Set restTime to value saved in local storage or default value
         const savedRestTime = parseInt(localStorage.getItem('restTime'));
         if (isNaN(savedRestTime)) { setRestTime(defaultRestTime); } 
         else { setRestTime(savedRestTime); }
@@ -126,7 +117,7 @@ function TimerContainer() {
 
     useEffect(() => {
         // Request permissions when timer starts if they haven't been requested before
-        if (timerIsOn && !permissionsWereRequested) { requestPermissions(); console.log('requested'); };
+        if (timerIsOn && !permissionsWereRequested) { requestPermissions(); };
     }, [timerIsOn]);
 
     const requestPermissions = () => {
@@ -160,8 +151,20 @@ function TimerContainer() {
         chime.play();
     };
 
+    const toggleDigits = () => {
+        // Turn digits on or off depending on state of showTime
+        if (showTime) {
+            updateDigits();
+        } else {
+            setFirstDigit(noDigit);
+            setSecondDigit(noDigit);
+            setThirdDigit(noDigit);
+            setFourthDigit(noDigit);
+        }
+    };
+
     useEffect(() => {
-        // Toggle showTime on and off when setting times to show that they are being set
+        // Toggle showTime on and off every second while inSettingsMode
         if (inSettingsMode) {
             setShowTime(false);
 
@@ -174,18 +177,6 @@ function TimerContainer() {
             setShowTime(true);
         }
     }, [inSettingsMode]);
-
-    const toggleDigits = () => {
-        // Turn digits on or off depending on state of showTime
-        if (showTime) {
-            updateDigits();
-        } else {
-            setFirstDigit(noDigit);
-            setSecondDigit(noDigit);
-            setThirdDigit(noDigit);
-            setFourthDigit(noDigit);
-        }
-    };
 
     useEffect(() => {
         // Turn digits on or off whenever showTime changes
@@ -236,34 +227,55 @@ function TimerContainer() {
     const stopTimer = () => {
         setTimerIsOn(false);
         setPaused(false);
-        setTimeLeft(inWorkPhase ? workTime : restTime);
         changeButtonFunction(setLeftButtonFunction, 'toggleSettingsMode');
         changeButtonFunction(setCenterButtonFunction, 'startTimer');
-    };
 
-    const togglePhase = () => {
-        // timeLeft is set in a separate effect hook because of asynchronicity issues
-        setInWorkPhase(prev => {
-            const newInWorkPhase = !prev;
-            setWorkIndicator(newInWorkPhase ? workOnIndicator : workOffIndicator);
-            setRestIndicator(newInWorkPhase ? restOffIndicator : restOnIndicator);
-            return newInWorkPhase;
+        setWorkTime(prevWorkTime => {
+            setRestTime(prevRestTime => {
+                setTimeLeft(inWorkPhase ? prevWorkTime : prevRestTime);
+                return prevRestTime;
+            });
+
+            return prevWorkTime;
         });
     };
 
-    useEffect(() => {
-        // Set timeLeft and stop timer whenever phase changes
-        // This is the separate effect hook mentioned in the function above
-        setTimeLeft(inWorkPhase ? workTime : restTime);
-        if (!inSettingsMode) { stopTimer(); }
-    }, [inWorkPhase]);
+    const togglePhase = () => {
+        setInWorkPhase(prevInWorkPhase => {
+            setWorkTime(prevWorkTime => {
+                setRestTime(prevRestTime => {
+                    setInSettingsMode(prevInSettingsMode => {
+                        if (!prevInSettingsMode) {
+                            setTimerIsOn(false);
+                            setPaused(false);
+                            changeButtonFunction(setLeftButtonFunction, 'toggleSettingsMode');
+                            changeButtonFunction(setCenterButtonFunction, 'startTimer');
+                        }
+
+                        setTimeLeft(!prevInWorkPhase ? prevWorkTime : prevRestTime);
+                        setWorkIndicator(!prevInWorkPhase ? workOnIndicator : workOffIndicator);
+                        setRestIndicator(!prevInWorkPhase ? restOffIndicator : restOnIndicator);
+                        return prevInSettingsMode;
+                    });
+
+                    return prevRestTime;
+                });
+
+                return prevWorkTime;
+            });
+
+            return !prevInWorkPhase;
+        });
+    };
 
     const toggleSettingsMode = () => {
         setInSettingsMode(prev => {
             const newValue = !prev;
 
             if (newValue) {
-                if (!inWorkPhase) { togglePhase(); };
+                // setInWorkPhase(prev => {
+                //     if (!prev) { togglePhase(); };
+                // });
                 changeButtonFunction(setLeftButtonFunction, 'decreaseTimeSetting');
                 changeButtonFunction(setCenterButtonFunction, 'acceptWorkTime');
                 changeButtonFunction(setRightButtonFunction, 'increaseTimeSetting');
@@ -277,10 +289,6 @@ function TimerContainer() {
         });
     };
 
-    useEffect(() => {
-        console.log(inWorkPhase ? 'Effect: Work' : 'Effect: Rest');
-    }, [inWorkPhase]);
-
     const increaseTimeSetting = () => {
         // Increase either workTime or restTime, depending on the phase
         const increment = (prevTime, maxTime, increment) => {
@@ -293,11 +301,16 @@ function TimerContainer() {
             }
         };
 
-        if (inWorkPhase) {
-            setWorkTime(prev => increment(prev, maxTime, timeSettingIncrement));
-        } else {
-            setRestTime(prev => increment(prev, maxTime, timeSettingIncrement));
-        }
+        setInWorkPhase(prevInWorkPhase => {
+            if (prevInWorkPhase) {
+                setWorkTime(prev => increment(prev, maxTime, timeSettingIncrement));
+            } else {
+                setRestTime(prev => increment(prev, maxTime, timeSettingIncrement));
+            }
+
+            return prevInWorkPhase;
+        })
+        
     };
 
     const decreaseTimeSetting = () => {
@@ -312,11 +325,15 @@ function TimerContainer() {
             }
         };
 
-        if (inWorkPhase) {
-            setWorkTime(prev => decrement(prev, minTime, timeSettingIncrement));
-        } else {
-            setRestTime(prev => decrement(prev, minTime, timeSettingIncrement));
-        }
+        setInWorkPhase(prevInWorkPhase => {
+            if (prevInWorkPhase) {
+                setWorkTime(prev => decrement(prev, minTime, timeSettingIncrement));
+            } else {
+                setRestTime(prev => decrement(prev, minTime, timeSettingIncrement));
+            }
+
+            return prevInWorkPhase;
+        });
     };
 
     const acceptWorkTime = () => {
