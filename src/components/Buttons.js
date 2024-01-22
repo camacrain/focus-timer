@@ -1,5 +1,5 @@
-import styles from './ButtonsContainer.module.css';
-import Button from './Button.js';
+import styles from './Buttons.module.css';
+import { Button } from './Button.js';
 import playIcon from '../images/play.png';
 import pauseIcon from '../images/pause.png';
 import stopIcon from '../images/stop.png';
@@ -9,7 +9,7 @@ import acceptIcon from '../images/accept.png';
 import increaseIcon from '../images/increase.png';
 import decreaseIcon from '../images/decrease.png';
 
-const ButtonsContainer = (props) => {
+export const Buttons = (props) => {
     return (
         <div className={styles.buttonsContainer}>
             <Button 
@@ -35,5 +35,3 @@ const ButtonsContainer = (props) => {
         </div>
     )
 };
-
-export default ButtonsContainer;

@@ -4,7 +4,7 @@ import workOffIndicator from '../images/workOff.png';
 import restOnIndicator from '../images/restOn.png';
 import restOffIndicator from '../images/restOff.png';
 
-const PhaseIndicators = (props) => {
+export const PhaseIndicators = (props) => {
     const workIndicator = props.inWorkPhase ? workOnIndicator : workOffIndicator;
     const restIndicator = props.inWorkPhase ? restOffIndicator : restOnIndicator;
 
@@ -15,5 +15,3 @@ const PhaseIndicators = (props) => {
         </div>
     );
 };
-
-export default PhaseIndicators;

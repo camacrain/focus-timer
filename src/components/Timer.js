@@ -1,9 +1,11 @@
 import styles from './Timer.module.css';
-import PhaseIndicators from './PhaseIndicators.js';
-import ButtonsContainer from './ButtonsContainer.js';
-import colon from '../images/colon.png';
+import { PhaseIndicators } from './PhaseIndicators.js';
+import { Buttons } from './Buttons.js';
+import { Time } from './Time.js';
+import { Digit } from './Digit.js';
+import { Colon } from './Colon.js';
 
-function Timer(props) {
+export const Timer = (props) => {
     return (
         <div className={styles.container}>
             <div className={styles.base}>
@@ -15,29 +17,17 @@ function Timer(props) {
                     <div className={styles.screenInner}>
                         <PhaseIndicators inWorkPhase={props.inWorkPhase} />
                     
-                        <div className={styles.timeContainer}>
-                            <div className={styles.time}>
-                                <div className={styles.digitContainer}>
-                                    <img className={styles.digit} src={props.firstDigit} />
-                                </div>
-                                <div className={styles.digitContainer}>
-                                    <img className={styles.digit} src={props.secondDigit} />
-                                </div>
-                                <div className={styles.colonContainer}>
-                                    <img className={styles.colon} src={colon} />
-                                </div>
-                                <div className={styles.digitContainer}>
-                                    <img className={styles.digit} src={props.thirdDigit} />
-                                </div>
-                                <div className={styles.digitContainer}>
-                                    <img className={styles.digit} src={props.fourthDigit} />
-                                </div>
-                            </div>
-                        </div>
+                        <Time>
+                            <Digit digit={props.firstDigit} />
+                            <Digit digit={props.secondDigit} />
+                            <Colon />
+                            <Digit digit={props.thirdDigit} />
+                            <Digit digit={props.fourthDigit} />
+                        </Time>
                     </div>
                 </div>
 
-                <ButtonsContainer
+                <Buttons
                     leftButtonFunction={props.leftButtonFunction}
                     centerButtonFunction={props.centerButtonFunction}
                     rightButtonFunction={props.rightButtonFunction}
@@ -55,5 +45,3 @@ function Timer(props) {
         </div>
     )
 };
-
-export default Timer;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Timer from './Timer.js';
+import { Timer } from './Timer.js';
 import noDigit from '../images/none.png';
 import zeroDigit from '../images/zero.png';
 import oneDigit from '../images/one.png';

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './Button.module.css';
 
-const Button = (props) => {
+export const Button = (props) => {
     const [isPressed, setIsPressed] = useState(false);
 
     const setIcon = (iconNumber) => {
@@ -49,5 +49,3 @@ const Button = (props) => {
         </button>
     );
 };
-
-export default Button;

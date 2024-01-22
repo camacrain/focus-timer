@@ -43,43 +43,6 @@
     transition: margin 0.3s ease-in-out, gap 0.3s ease-in-out;
 }
 
-.time {
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-}
-
-.digitContainer {
-    flex-shrink: 1;
-    max-width: 100px;
-    display: flex;
-}
-
-.digit {
-    width: 100%;
-}
-
-.colonContainer {
-    flex-shrink: 1;
-    max-width: 32px;
-    display: flex;
-}
-
-.colon {
-    width: 100%;
-}
-
-.phaseContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2px;
-}
-
-.phaseIndicator {
-    width: 22.5%;
-    height: auto;
-}
-
 .screenLight {
     position: absolute;
     z-index: 5;
