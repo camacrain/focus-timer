@@ -1,21 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
-import Timer from './components/Timer.js';
-import noDigit from './images/none.png';
-import zeroDigit from './images/zero.png';
-import oneDigit from './images/one.png';
-import twoDigit from './images/two.png';
-import threeDigit from './images/three.png';
-import fourDigit from './images/four.png';
-import fiveDigit from './images/five.png';
-import sixDigit from './images/six.png';
-import sevenDigit from './images/seven.png';
-import eightDigit from './images/eight.png';
-import nineDigit from './images/nine.png';
-import workOnIndicator from './images/workOn.png';
-import workOffIndicator from './images/workOff.png';
-import restOnIndicator from './images/restOn.png';
-import restOffIndicator from './images/restOff.png';
-import notificationSound from './TimerDone.mp3';
+import Timer from './Timer.js';
+import noDigit from '../images/none.png';
+import zeroDigit from '../images/zero.png';
+import oneDigit from '../images/one.png';
+import twoDigit from '../images/two.png';
+import threeDigit from '../images/three.png';
+import fourDigit from '../images/four.png';
+import fiveDigit from '../images/five.png';
+import sixDigit from '../images/six.png';
+import sevenDigit from '../images/seven.png';
+import eightDigit from '../images/eight.png';
+import nineDigit from '../images/nine.png';
+import notificationSound from '../TimerDone.mp3';
 
 function TimerContainer() {
     const [firstDigit, setFirstDigit] = useState(zeroDigit);
@@ -27,10 +23,7 @@ function TimerContainer() {
     const [inWorkPhase, setInWorkPhase] = useState(true);
     const [timerIsOn, setTimerIsOn] = useState(false);
     const [timeLeft, setTimeLeft] = useState(null);
-    const [paused, setPaused] = useState(false);
     const [showTime, setShowTime] = useState(true);
-    const [workIndicator, setWorkIndicator] = useState(workOnIndicator);
-    const [restIndicator, setRestIndicator] = useState(restOffIndicator);
     const [inSettingsMode, setInSettingsMode] = useState(false);
     const [leftButtonFunction, setLeftButtonFunction] = useState(null);
     const [centerButtonFunction, setCenterButtonFunction] = useState(null);
@@ -219,7 +212,6 @@ function TimerContainer() {
 
     const startTimer = () => {
         setTimerIsOn(true);
-        setPaused(false);
         setTimeLeft(prev => prev - 1);
         changeButtonFunction(setLeftButtonFunction, 'stopTimer');
         changeButtonFunction(setCenterButtonFunction, 'pauseTimer');
@@ -227,14 +219,12 @@ function TimerContainer() {
 
     const pauseTimer = () => {
         setTimerIsOn(false);
-        setPaused(true);
         changeButtonFunction(setLeftButtonFunction, 'stopTimer');
         changeButtonFunction(setCenterButtonFunction, 'startTimer');
     };
 
     const stopTimer = () => {
         setTimerIsOn(false);
-        setPaused(false);
         changeButtonFunction(setLeftButtonFunction, 'toggleSettingsMode');
         changeButtonFunction(setCenterButtonFunction, 'startTimer');
 
@@ -259,8 +249,6 @@ function TimerContainer() {
                     setInSettingsMode(prevInSettingsMode => {
                         if (!prevInSettingsMode) { stopTimer(); }
                         setTimeLeft(!prevInWorkPhase ? prevWorkTime : prevRestTime);
-                        setWorkIndicator(!prevInWorkPhase ? workOnIndicator : workOffIndicator);
-                        setRestIndicator(!prevInWorkPhase ? restOffIndicator : restOnIndicator);
                         return prevInSettingsMode;
                     });
 
@@ -414,8 +402,6 @@ function TimerContainer() {
             fourthDigit={fourthDigit}
             timerIsOn={timerIsOn}
             inWorkPhase={inWorkPhase}
-            workIndicator={workIndicator}
-            restIndicator={restIndicator}
             handleLeftButtonPress={toggleLeftButtonIsPressed}
             leftButtonIsPressed={leftButtonIsPressed}
             leftButtonFunction={leftButtonFunction}

@@ -1,13 +1,14 @@
 import styles from './Timer.module.css';
-import colon from './images/colon.png';
-import playIcon from './images/play.png';
-import pauseIcon from './images/pause.png';
-import stopIcon from './images/stop.png';
-import togglePhaseIcon from './images/togglePhase.png';
-import settingsIcon from './images/settings.png';
-import acceptIcon from './images/accept.png';
-import increaseIcon from './images/increase.png';
-import decreaseIcon from './images/decrease.png';
+import PhaseIndicators from './PhaseIndicators.js';
+import colon from '../images/colon.png';
+import playIcon from '../images/play.png';
+import pauseIcon from '../images/pause.png';
+import stopIcon from '../images/stop.png';
+import togglePhaseIcon from '../images/togglePhase.png';
+import settingsIcon from '../images/settings.png';
+import acceptIcon from '../images/accept.png';
+import increaseIcon from '../images/increase.png';
+import decreaseIcon from '../images/decrease.png';
 
 function Timer(props) {
     return (
@@ -19,10 +20,7 @@ function Timer(props) {
                     <div className={styles.screenLight}></div>
 
                     <div className={styles.screenInner}>
-                        <div className={styles.phaseContainer}>
-                            <img className={styles.phaseIndicator} src={props.workIndicator} />
-                            <img className={styles.phaseIndicator} src={props.restIndicator} />
-                        </div>
+                        <PhaseIndicators inWorkPhase={props.inWorkPhase} />
                     
                         <div className={styles.timeContainer}>
                             <div className={styles.time}>
