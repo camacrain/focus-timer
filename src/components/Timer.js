@@ -2,9 +2,18 @@ import styles from './Timer.module.css';
 import { PhaseIndicators } from './PhaseIndicators.js';
 import { PhaseIndicator } from './PhaseIndicator.js';
 import { Buttons } from './Buttons.js';
+import { Button } from './Button.js';
 import { Time } from './Time.js';
 import { Digit } from './Digit.js';
 import { Colon } from './Colon.js';
+import playIcon from '../images/play.png';
+import pauseIcon from '../images/pause.png';
+import stopIcon from '../images/stop.png';
+import togglePhaseIcon from '../images/togglePhase.png';
+import settingsIcon from '../images/settings.png';
+import acceptIcon from '../images/accept.png';
+import increaseIcon from '../images/increase.png';
+import decreaseIcon from '../images/decrease.png';
 
 export const Timer = (props) => {
     return (
@@ -31,20 +40,28 @@ export const Timer = (props) => {
                     </div>
                 </div>
 
-                <Buttons
-                    leftButtonFunction={props.leftButtonFunction}
-                    centerButtonFunction={props.centerButtonFunction}
-                    rightButtonFunction={props.rightButtonFunction}
-                    toggleSettingsMode={props.toggleSettingsMode}
-                    stopTimer={props.stopTimer}
-                    decreaseTimeSetting={props.decreaseTimeSetting}
-                    startTimer={props.startTimer}
-                    pauseTimer={props.pauseTimer}
-                    acceptRestTime={props.acceptRestTime}
-                    acceptWorkTime={props.acceptWorkTime}
-                    togglePhase={props.togglePhase}
-                    increaseTimeSetting={props.increaseTimeSetting}
-                />
+                <Buttons>
+                    <Button 
+                        currentFunction={props.leftButtonFunction}
+                        functions={[props.toggleSettingsMode, props.stopTimer, props.decreaseTimeSetting]}
+                        icons={[settingsIcon, stopIcon, decreaseIcon]} 
+                        isCenterButton={false}
+                    />
+
+                    <Button 
+                        currentFunction={props.centerButtonFunction}
+                        functions={[props.startTimer, props.pauseTimer, props.acceptWorkTime, props.acceptRestTime]}
+                        icons={[playIcon, pauseIcon, acceptIcon]} 
+                        isCenterButton={true}
+                    />
+
+                    <Button 
+                        currentFunction={props.rightButtonFunction}
+                        functions={[props.togglePhase, props.increaseTimeSetting]}
+                        icons={[togglePhaseIcon, increaseIcon]} 
+                        isCenterButton={false}
+                    />
+                </Buttons>
             </div>
         </div>
     )
