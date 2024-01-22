@@ -1,5 +1,6 @@
 import styles from './Timer.module.css';
 import { PhaseIndicators } from './PhaseIndicators.js';
+import { PhaseIndicator } from './PhaseIndicator.js';
 import { Buttons } from './Buttons.js';
 import { Time } from './Time.js';
 import { Digit } from './Digit.js';
@@ -15,7 +16,10 @@ export const Timer = (props) => {
                     <div className={styles.screenLight}></div>
 
                     <div className={styles.screenInner}>
-                        <PhaseIndicators inWorkPhase={props.inWorkPhase} />
+                        <PhaseIndicators inWorkPhase={props.inWorkPhase}>
+                            <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={true} />
+                            <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={false} />
+                        </PhaseIndicators>
                     
                         <Time>
                             <Digit digit={props.firstDigit} />
