@@ -1,6 +1,6 @@
 import styles from './Timer.module.css';
 import PhaseIndicators from './PhaseIndicators.js';
-import Buttons from './Buttons.js';
+import ButtonsContainer from './ButtonsContainer.js';
 import colon from '../images/colon.png';
 
 function Timer(props) {
@@ -37,7 +37,7 @@ function Timer(props) {
                     </div>
                 </div>
 
-                <Buttons
+                <ButtonsContainer
                     leftButtonFunction={props.leftButtonFunction}
                     centerButtonFunction={props.centerButtonFunction}
                     rightButtonFunction={props.rightButtonFunction}
