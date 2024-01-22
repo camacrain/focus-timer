@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Timer from './Timer.js';
 import noDigit from '../images/none.png';
 import zeroDigit from '../images/zero.png';
@@ -28,9 +28,6 @@ function TimerContainer() {
     const [leftButtonFunction, setLeftButtonFunction] = useState(null);
     const [centerButtonFunction, setCenterButtonFunction] = useState(null);
     const [rightButtonFunction, setRightButtonFunction] = useState(null);
-    const [leftButtonIsPressed, setLeftButtonIsPressed] = useState(false);
-    const [centerButtonIsPressed, setCenterButtonIsPressed] = useState(false);
-    const [rightButtonIsPressed, setRightButtonIsPressed] = useState(false);
     const [permissionsWereRequested, setPermissionsWereRequested] = useState(false);
     const defaultWorkTime = 1500;
     const defaultRestTime = 20;
@@ -348,30 +345,6 @@ function TimerContainer() {
     const saveRestTime = () => {
         localStorage.setItem('restTime', restTime);
     };
-
-    const toggleLeftButtonIsPressed = () => {
-        setLeftButtonIsPressed(prev => {
-            const newValue = !prev;
-            if (!newValue) { leftButtonFunction(); }
-            return newValue;
-        });
-    };
-
-    const toggleCenterButtonIsPressed = () => {
-        setCenterButtonIsPressed(prev => {
-            const newValue = !prev;
-            if (!newValue) { centerButtonFunction(); }
-            return newValue;
-        });
-    };
-
-    const toggleRightButtonIsPressed = () => {
-        setRightButtonIsPressed(prev => {
-            const newValue = !prev;
-            if (!newValue) { rightButtonFunction(); }
-            return newValue;
-        });
-    };
     
     const changeButtonFunction = (setButtonFunction, functionName) => {
         // Change button functions to current state
@@ -402,14 +375,8 @@ function TimerContainer() {
             fourthDigit={fourthDigit}
             timerIsOn={timerIsOn}
             inWorkPhase={inWorkPhase}
-            handleLeftButtonPress={toggleLeftButtonIsPressed}
-            leftButtonIsPressed={leftButtonIsPressed}
             leftButtonFunction={leftButtonFunction}
-            handleCenterButtonPress={toggleCenterButtonIsPressed}
-            centerButtonIsPressed={centerButtonIsPressed}
             centerButtonFunction={centerButtonFunction}
-            handleRightButtonPress={toggleRightButtonIsPressed}
-            rightButtonIsPressed={rightButtonIsPressed}
             rightButtonFunction={rightButtonFunction}
             toggleSettingsMode={toggleSettingsMode}
             stopTimer={stopTimer}
