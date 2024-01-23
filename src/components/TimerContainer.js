@@ -1,23 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Timer } from './Timer.js';
-import noDigit from '../images/none.png';
-import zeroDigit from '../images/zero.png';
-import oneDigit from '../images/one.png';
-import twoDigit from '../images/two.png';
-import threeDigit from '../images/three.png';
-import fourDigit from '../images/four.png';
-import fiveDigit from '../images/five.png';
-import sixDigit from '../images/six.png';
-import sevenDigit from '../images/seven.png';
-import eightDigit from '../images/eight.png';
-import nineDigit from '../images/nine.png';
 import notificationSound from '../TimerDone.mp3';
 
 function TimerContainer() {
-    const [firstDigit, setFirstDigit] = useState(zeroDigit);
-    const [secondDigit, setSecondDigit] = useState(zeroDigit);
-    const [thirdDigit, setThirdDigit] = useState(zeroDigit);
-    const [fourthDigit, setFourthDigit] = useState(zeroDigit);
     const [workTime, setWorkTime] = useState(null);
     const [restTime, setRestTime] = useState(null);
     const [inWorkPhase, setInWorkPhase] = useState(true);
@@ -30,7 +15,7 @@ function TimerContainer() {
     const [rightButtonFunction, setRightButtonFunction] = useState(null);
     const [permissionsWereRequested, setPermissionsWereRequested] = useState(false);
     const defaultWorkTime = 1500;
-    const defaultRestTime = 20;
+    const defaultRestTime = 300;
     const maxTime = 3600;
     const minTime = 300;
     const timeSettingIncrement = 300;
@@ -76,13 +61,6 @@ function TimerContainer() {
         // Save restTime to local storage whenever it changes
         saveRestTime();
     }, [restTime]);
-
-    useEffect(() => {
-        // Update timer digits whenever timeLeft changes
-        if (showTime) {
-            updateDigits();
-        }
-    }, [timeLeft]);
 
     useEffect(() => {
         // Decrement timeLeft once a second while timerIsOn
@@ -149,18 +127,6 @@ function TimerContainer() {
         chime.play();
     };
 
-    const toggleDigits = () => {
-        // Turn digits on or off depending on state of showTime
-        if (showTime) {
-            updateDigits();
-        } else {
-            setFirstDigit(noDigit);
-            setSecondDigit(noDigit);
-            setThirdDigit(noDigit);
-            setFourthDigit(noDigit);
-        }
-    };
-
     useEffect(() => {
         // Toggle showTime on and off every second while inSettingsMode
         if (inSettingsMode) {
@@ -175,37 +141,6 @@ function TimerContainer() {
             setShowTime(true);
         }
     }, [inSettingsMode]);
-
-    useEffect(() => {
-        // Turn digits on or off whenever showTime changes
-        toggleDigits();
-    }, [showTime]);
-
-    const updateDigits = () => {
-        // Update digits based on timeLeft
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        const [firstDigit, secondDigit] = minutes.toString().padStart(2, '0');
-        const [thirdDigit, fourthDigit] = seconds.toString().padStart(2, '0');
-
-        const digitToSvg = {
-            '0': zeroDigit,
-            '1': oneDigit,
-            '2': twoDigit,
-            '3': threeDigit,
-            '4': fourDigit,
-            '5': fiveDigit,
-            '6': sixDigit,
-            '7': sevenDigit,
-            '8': eightDigit,
-            '9': nineDigit,
-        };
-
-        setFirstDigit(digitToSvg[firstDigit] || zeroDigit);
-        setSecondDigit(digitToSvg[secondDigit] || zeroDigit);
-        setThirdDigit(digitToSvg[thirdDigit] || zeroDigit);
-        setFourthDigit(digitToSvg[fourthDigit] || zeroDigit);
-    };
 
     const startTimer = () => {
         setTimerIsOn(true);
@@ -369,10 +304,8 @@ function TimerContainer() {
 
     return (
         <Timer 
-            firstDigit={firstDigit} 
-            secondDigit={secondDigit}
-            thirdDigit={thirdDigit}
-            fourthDigit={fourthDigit}
+            showTime={showTime}
+            timeLeft={timeLeft}
             timerIsOn={timerIsOn}
             inWorkPhase={inWorkPhase}
             leftButtonFunction={leftButtonFunction}

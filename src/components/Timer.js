@@ -28,11 +28,11 @@ export const Timer = (props) => {
                     </PhaseIndicators>
                 
                     <Time>
-                        <Digit digit={props.firstDigit} />
-                        <Digit digit={props.secondDigit} />
+                        <Digit digit={'first'} timeLeft={props.timeLeft} showTime={props.showTime}/>
+                        <Digit digit={'second'} timeLeft={props.timeLeft} showTime={props.showTime}/>
                         <Colon />
-                        <Digit digit={props.thirdDigit} />
-                        <Digit digit={props.fourthDigit} />
+                        <Digit digit={'third'} timeLeft={props.timeLeft} showTime={props.showTime}/>
+                        <Digit digit={'fourth'} timeLeft={props.timeLeft} showTime={props.showTime}/>
                     </Time>
                 </Screen>
 
