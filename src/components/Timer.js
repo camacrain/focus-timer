@@ -1,4 +1,6 @@
 import styles from './Timer.module.css';
+import { Casing } from './Casing.js';
+import { Screen } from './Screen.js';
 import { PhaseIndicators } from './PhaseIndicators.js';
 import { PhaseIndicator } from './PhaseIndicator.js';
 import { Buttons } from './Buttons.js';
@@ -18,27 +20,21 @@ import decreaseIcon from '../images/decrease.png';
 export const Timer = (props) => {
     return (
         <div className={styles.container}>
-            <div className={styles.base}>
-                <div className={styles.baseLight}></div>
-
-                <div className={styles.screenOuter}>
-                    <div className={styles.screenLight}></div>
-
-                    <div className={styles.screenInner}>
-                        <PhaseIndicators inWorkPhase={props.inWorkPhase}>
-                            <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={true} />
-                            <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={false} />
-                        </PhaseIndicators>
-                    
-                        <Time>
-                            <Digit digit={props.firstDigit} />
-                            <Digit digit={props.secondDigit} />
-                            <Colon />
-                            <Digit digit={props.thirdDigit} />
-                            <Digit digit={props.fourthDigit} />
-                        </Time>
-                    </div>
-                </div>
+            <Casing>
+                <Screen>
+                    <PhaseIndicators>
+                        <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={true} />
+                        <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={false} />
+                    </PhaseIndicators>
+                
+                    <Time>
+                        <Digit digit={props.firstDigit} />
+                        <Digit digit={props.secondDigit} />
+                        <Colon />
+                        <Digit digit={props.thirdDigit} />
+                        <Digit digit={props.fourthDigit} />
+                    </Time>
+                </Screen>
 
                 <Buttons>
                     <Button 
@@ -62,7 +58,7 @@ export const Timer = (props) => {
                         isCenterButton={false}
                     />
                 </Buttons>
-            </div>
+            </Casing>
         </div>
     )
 };
