@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Timer } from './Timer.js';
-import notificationSound from '../TimerDone.mp3';
+import { saveWorkTime, saveRestTime } from '../utilities/storage.js';
+import { sendWorkNotification, sendRestNotification } from '../utilities/notifications.js';
 
 function TimerContainer() {
     const [workTime, setWorkTime] = useState(null);
@@ -15,11 +16,10 @@ function TimerContainer() {
     const [rightButtonFunction, setRightButtonFunction] = useState(null);
     const [permissionsWereRequested, setPermissionsWereRequested] = useState(false);
     const defaultWorkTime = 1500;
-    const defaultRestTime = 300;
+    const defaultRestTime = 5;
     const maxTime = 3600;
     const minTime = 300;
     const timeSettingIncrement = 300;
-    const chime = new Audio(notificationSound);
 
     useEffect(() => {
         // Initialize
@@ -54,12 +54,12 @@ function TimerContainer() {
 
     useEffect(() => {
         // Save workTime to local storage whenever it changes
-        saveWorkTime();
+        saveWorkTime(workTime);
     }, [workTime]);
 
     useEffect(() => {
         // Save restTime to local storage whenever it changes
-        saveRestTime();
+        saveRestTime(restTime);
     }, [restTime]);
 
     useEffect(() => {
@@ -104,27 +104,6 @@ function TimerContainer() {
                 localStorage.setItem('permissionsWereRequested', true);
             });
         }
-    };
-
-    const sendWorkNotification = () => {
-        navigator.permissions.query({name:'notifications'}).then(function(permissionStatus) {
-            if (permissionStatus.state === 'granted') {
-                new Notification("Let's work!");
-                
-            }
-        });
-
-        chime.play();
-    };
-
-    const sendRestNotification = () => {
-        navigator.permissions.query({name:'notifications'}).then(function(permissionStatus) {
-            if (permissionStatus.state === 'granted') {
-                new Notification("Break time?");
-            }
-        });
-
-        chime.play();
     };
 
     useEffect(() => {
@@ -271,14 +250,6 @@ function TimerContainer() {
 
     const acceptRestTime = () => {
         toggleSettingsMode();
-    };
-
-    const saveWorkTime = () => {
-        localStorage.setItem('workTime', workTime);
-    };
-
-    const saveRestTime = () => {
-        localStorage.setItem('restTime', restTime);
     };
     
     const changeButtonFunction = (setButtonFunction, functionName) => {
