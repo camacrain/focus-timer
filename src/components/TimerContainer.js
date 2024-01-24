@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Timer } from './Timer.js';
 import { saveWorkTime, saveRestTime } from '../utilities/storage.js';
-import { sendWorkNotification, sendRestNotification } from '../utilities/notifications.js';
+import { sendNotification } from '../utilities/notifications.js';
 
 function TimerContainer() {
     const [workTime, setWorkTime] = useState(null);
@@ -16,7 +16,7 @@ function TimerContainer() {
     const [rightButtonFunction, setRightButtonFunction] = useState(null);
     const [permissionsWereRequested, setPermissionsWereRequested] = useState(false);
     const defaultWorkTime = 1500;
-    const defaultRestTime = 5;
+    const defaultRestTime = 300;
     const maxTime = 3600;
     const minTime = 300;
     const timeSettingIncrement = 300;
@@ -75,12 +75,7 @@ function TimerContainer() {
                     if (prev > 1) {
                         return newTime;
                     } else {
-                        if (inWorkPhase) { 
-                            sendRestNotification(); 
-                        } else {
-                            sendWorkNotification(); 
-                        }
-
+                        sendNotification(inWorkPhase);
                         togglePhase();
                     }
                 });

@@ -1,24 +1,15 @@
 import notificationSound from '../TimerDone.mp3';
 
-export const sendWorkNotification = () => {
+export const sendNotification = (inWorkPhase) => {
     const chime = new Audio(notificationSound);
 
     navigator.permissions.query({name:'notifications'}).then(function(permissionStatus) {
         if (permissionStatus.state === 'granted') {
-            new Notification("Let's work!");
-            
-        }
-    });
-
-    chime.play();
-};
-
-export const sendRestNotification = () => {
-    const chime = new Audio(notificationSound);
-
-    navigator.permissions.query({name:'notifications'}).then(function(permissionStatus) {
-        if (permissionStatus.state === 'granted') {
-            new Notification("Break time?");
+            if (!inWorkPhase) {
+                new Notification("Let's work!");
+            } else {
+                new Notification("Break time?");
+            }
         }
     });
 
