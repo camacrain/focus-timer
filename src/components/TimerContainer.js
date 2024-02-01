@@ -40,6 +40,15 @@ function TimerContainer() {
 
     useEffect(() => {
         // Initialize
+        const imagesToPreload = [
+            noDigit, zeroDigit, oneDigit, twoDigit, threeDigit, 
+            fourDigit, fiveDigit, sixDigit, sevenDigit, eightDigit, nineDigit
+        ];
+    
+        imagesToPreload.forEach(imageSrc => {
+            const img = new Image();
+            img.src = imageSrc;
+        });
 
         // Set button functions
         changeButtonFunction(setLeftButtonFunction, 'toggleSettingsMode');
