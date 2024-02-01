@@ -181,10 +181,16 @@ function TimerContainer() {
     };
 
     const turnDigitsOff = () => {
-        setFirstDigit(noDigit);
-        setSecondDigit(noDigit);
-        setThirdDigit(noDigit);
-        setFourthDigit(noDigit);
+        // setFirstDigit(noDigit);
+        // setSecondDigit(noDigit);
+        // setThirdDigit(noDigit);
+        // setFourthDigit(noDigit);
+        setDigits({
+            firstDigit: noDigit,
+            secondDigit: noDigit,
+            thirdDigit: noDigit,
+            fourthDigit: noDigit,
+          });
     };
 
     const startTimer = () => {
@@ -357,10 +363,10 @@ function TimerContainer() {
             acceptWorkTime={acceptWorkTime}
             togglePhase={togglePhase}
             increaseTimeSetting={increaseTimeSetting}
-            firstDigit={firstDigit}
-            secondDigit={secondDigit}
-            thirdDigit={thirdDigit}
-            fourthDigit={fourthDigit}
+            firstDigit={digits.firstDigit}
+            secondDigit={digits.secondDigit}
+            thirdDigit={digits.thirdDigit}
+            fourthDigit={digits.fourthDigit}
         />
     );
 };
