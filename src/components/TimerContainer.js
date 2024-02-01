@@ -363,10 +363,10 @@ function TimerContainer() {
             acceptWorkTime={acceptWorkTime}
             togglePhase={togglePhase}
             increaseTimeSetting={increaseTimeSetting}
-            firstDigit={digits.firstDigit}
-            secondDigit={digits.secondDigit}
-            thirdDigit={digits.thirdDigit}
-            fourthDigit={digits.fourthDigit}
+            digits={digits}
+            // secondDigit={digits.secondDigit}
+            // thirdDigit={digits.thirdDigit}
+            // fourthDigit={digits.fourthDigit}
         />
     );
 };

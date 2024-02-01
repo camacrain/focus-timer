@@ -27,13 +27,9 @@ export const Timer = (props) => {
                         <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={false} />
                     </PhaseIndicators>
                 
-                    <Time>
-                        <Digit digit={props.firstDigit} />
-                        <Digit digit={props.secondDigit} />
-                        <Colon />
-                        <Digit digit={props.thirdDigit} />
-                        <Digit digit={props.fourthDigit} />
-                    </Time>
+                    <Time digits={props.digits} />
+                        
+                    {/* </Time> */}
                 </Screen>
 
                 <Buttons>
