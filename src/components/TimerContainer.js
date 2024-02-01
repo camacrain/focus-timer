@@ -40,6 +40,8 @@ function TimerContainer() {
 
     useEffect(() => {
         // Initialize
+
+        // Preload digit images
         const imagesToPreload = [
             noDigit, zeroDigit, oneDigit, twoDigit, threeDigit, 
             fourDigit, fiveDigit, sixDigit, sevenDigit, eightDigit, nineDigit
@@ -136,6 +138,7 @@ function TimerContainer() {
     }, [inSettingsMode]);
 
     useEffect(() => {
+        // Update digits when timeLeft or showTime changes
         if (showTime) {
             updateDigits();
         } else {

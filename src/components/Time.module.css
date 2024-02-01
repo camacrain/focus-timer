@@ -3,23 +3,3 @@
     justify-content: center;
     gap: 4px;
 }
-
-.digitContainer {
-    flex-shrink: 1;
-    max-width: 100px;
-    display: flex;
-}
-
-.digit {
-    width: 100%;
-}
-
-.colonContainer {
-    flex-shrink: 1;
-    max-width: 32px;
-    display: flex;
-}
-
-.colon {
-    width: 100%;
-}

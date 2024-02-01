@@ -6,6 +6,8 @@ import { PhaseIndicator } from './PhaseIndicator.js';
 import { Buttons } from './Buttons.js';
 import { Button } from './Button.js';
 import { Time } from './Time.js';
+import { Digit } from './Digit.js';
+import { Colon } from './Colon.js';
 import playIcon from '../images/play.png';
 import pauseIcon from '../images/pause.png';
 import stopIcon from '../images/stop.png';
@@ -25,9 +27,13 @@ export const Timer = (props) => {
                         <PhaseIndicator inWorkPhase={props.inWorkPhase} isWorkIndicator={false} />
                     </PhaseIndicators>
                 
-                    <Time digits={props.digits} />
-                        
-                    {/* </Time> */}
+                    <Time>
+                        <Digit digit={props.digits.firstDigit} />
+                        <Digit digit={props.digits.secondDigit} />
+                        <Colon />
+                        <Digit digit={props.digits.thirdDigit} />
+                        <Digit digit={props.digits.fourthDigit} />
+                    </Time>
                 </Screen>
 
                 <Buttons>
