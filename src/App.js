@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './App.module.css';
-import TimerContainer from './TimerContainer.js';
-import Credits from './Credits.js';
+import TimerContainer from './components/TimerContainer.js';
+import Credits from './components/Credits.js';
 
 function App() {
   const [isHidden, setIsHidden] = useState(true);

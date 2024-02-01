@@ -1,0 +1,19 @@
+.casing {
+    position: relative;
+    z-index: 1;
+    border-radius: 32px;
+    background-color: #1D2326;
+    box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 1);
+    padding: 16px;
+    overflow: hidden;
+}
+
+.casingLight {
+    position: absolute;
+    z-index: 2;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    width: 100%;
+    height: 75%;
+    top: 0.0001px;
+    left: 0.0001px;
+}
