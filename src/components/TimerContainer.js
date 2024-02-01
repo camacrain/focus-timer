@@ -2,8 +2,23 @@ import { useState, useEffect } from 'react';
 import { Timer } from './Timer.js';
 import { saveWorkTime, saveRestTime } from '../utilities/storage.js';
 import { sendNotification } from '../utilities/notifications.js';
+import noDigit from '../images/none.png';
+import zeroDigit from '../images/zero.png';
+import oneDigit from '../images/one.png';
+import twoDigit from '../images/two.png';
+import threeDigit from '../images/three.png';
+import fourDigit from '../images/four.png';
+import fiveDigit from '../images/five.png';
+import sixDigit from '../images/six.png';
+import sevenDigit from '../images/seven.png';
+import eightDigit from '../images/eight.png';
+import nineDigit from '../images/nine.png';
 
 function TimerContainer() {
+    const [firstDigit, setFirstDigit] = useState(zeroDigit);
+    const [secondDigit, setSecondDigit] = useState(zeroDigit);
+    const [thirdDigit, setThirdDigit] = useState(zeroDigit);
+    const [fourthDigit, setFourthDigit] = useState(zeroDigit);
     const [workTime, setWorkTime] = useState(null);
     const [restTime, setRestTime] = useState(null);
     const [inWorkPhase, setInWorkPhase] = useState(true);
@@ -115,6 +130,50 @@ function TimerContainer() {
             setShowTime(true);
         }
     }, [inSettingsMode]);
+
+    useEffect(() => {
+        if (showTime) {
+            updateDigits();
+        } else {
+            turnDigitsOff();
+        }
+    }, [timeLeft, showTime])
+
+    const updateDigits = () => {
+        // Update digit based on timeLeft
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        const firstDigit = minutes.toString().padStart(2, '0')[0];
+        const secondDigit = minutes.toString().padStart(2, '0')[1];
+        const thirdDigit = seconds.toString().padStart(2, '0')[0];
+        const fourthDigit = seconds.toString().padStart(2, '0')[1];
+
+        const digitToSvg = {
+            '0': zeroDigit,
+            '1': oneDigit,
+            '2': twoDigit,
+            '3': threeDigit,
+            '4': fourDigit,
+            '5': fiveDigit,
+            '6': sixDigit,
+            '7': sevenDigit,
+            '8': eightDigit,
+            '9': nineDigit,
+        };
+
+        setFirstDigit(digitToSvg[firstDigit] || zeroDigit);
+        setSecondDigit(digitToSvg[secondDigit] || zeroDigit);
+        setThirdDigit(digitToSvg[thirdDigit] || zeroDigit);
+        setFourthDigit(digitToSvg[fourthDigit] || zeroDigit);
+    };
+
+    const turnDigitsOff = () => {
+        setFirstDigit(noDigit);
+        setSecondDigit(noDigit);
+        setThirdDigit(noDigit);
+        setFourthDigit(noDigit);
+    };
 
     const startTimer = () => {
         setTimerIsOn(true);
@@ -286,6 +345,10 @@ function TimerContainer() {
             acceptWorkTime={acceptWorkTime}
             togglePhase={togglePhase}
             increaseTimeSetting={increaseTimeSetting}
+            firstDigit={firstDigit}
+            secondDigit={secondDigit}
+            thirdDigit={thirdDigit}
+            fourthDigit={fourthDigit}
         />
     );
 };

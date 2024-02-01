@@ -1,7 +1,8 @@
+import React from 'react';
 import { useState } from 'react';
 import styles from './Button.module.css';
 
-export const Button = (props) => {
+export const Button = React.memo((props) => {
     const [isPressed, setIsPressed] = useState(false);
 
     const setIcon = (iconNumber) => {
@@ -48,4 +49,6 @@ export const Button = (props) => {
             {setIcon(2)}
         </button>
     );
-};
+}, (prevProps, nextProps) => {
+    return prevProps.currentFunction === nextProps.currentFunction;
+});
