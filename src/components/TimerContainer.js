@@ -88,6 +88,7 @@ function TimerContainer() {
         // and send a notification when timeLeft reaches 0
         if (timerIsOn) {
             const worker = new Worker(process.env.PUBLIC_URL + '/worker.js');
+            //setTimeLeft(prev => prev - 1);
 
             worker.onmessage = (e) => {
                 setTimeLeft(prev => {
@@ -195,7 +196,7 @@ function TimerContainer() {
 
     const startTimer = () => {
         setTimerIsOn(true);
-        setTimeLeft(prev => prev - 1);
+        //setTimeLeft(prev => prev - 1);
         changeButtonFunction(setLeftButtonFunction, 'stopTimer');
         changeButtonFunction(setCenterButtonFunction, 'pauseTimer');
     };

@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import styles from './Time.module.css';
 import colon from '../images/colon.png';
 
 export const Time = (props) => {
+    useEffect(() => {
+        console.log('Time rerendered');
+    });
+    
     return (
         <div className={styles.time}>
             <div className={styles.digitContainer}>
