@@ -1,9 +1,0 @@
-.digitContainer {
-    flex-shrink: 1;
-    max-width: 100px;
-    display: flex;
-}
-
-.digit {
-    width: 100%;
-}

@@ -1,9 +1,0 @@
-.colonContainer {
-    flex-shrink: 1;
-    max-width: 32px;
-    display: flex;
-}
-
-.colon {
-    width: 100%;
-}

@@ -21,10 +21,6 @@ function TimerContainer() {
         thirdDigit: zeroDigit,
         fourthDigit: zeroDigit,
       });
-    // const [firstDigit, setFirstDigit] = useState(zeroDigit);
-    // const [secondDigit, setSecondDigit] = useState(zeroDigit);
-    // const [thirdDigit, setThirdDigit] = useState(zeroDigit);
-    // const [fourthDigit, setFourthDigit] = useState(zeroDigit);
     const [workTime, setWorkTime] = useState(null);
     const [restTime, setRestTime] = useState(null);
     const [inWorkPhase, setInWorkPhase] = useState(true);
@@ -52,6 +48,7 @@ function TimerContainer() {
 
         //Set workTime to value saved in local storage or default value and set timeLeft to workTime
         const savedWorkTime = parseInt(localStorage.getItem('workTime'));
+
         if (isNaN(savedWorkTime)) { 
             setWorkTime(defaultWorkTime); 
             setTimeLeft(defaultWorkTime);
@@ -62,6 +59,7 @@ function TimerContainer() {
 
         //Set restTime to value saved in local storage or default value
         const savedRestTime = parseInt(localStorage.getItem('restTime'));
+
         if (isNaN(savedRestTime)) { 
             setRestTime(defaultRestTime); 
         } else { 
@@ -88,7 +86,6 @@ function TimerContainer() {
         // and send a notification when timeLeft reaches 0
         if (timerIsOn) {
             const worker = new Worker(process.env.PUBLIC_URL + '/worker.js');
-            //setTimeLeft(prev => prev - 1);
 
             worker.onmessage = (e) => {
                 setTimeLeft(prev => {
@@ -113,15 +110,6 @@ function TimerContainer() {
         // Request permissions when timer starts if they haven't been requested before
         if (timerIsOn && !permissionsWereRequested) { requestPermissions(); };
     }, [timerIsOn]);
-
-    const requestPermissions = () => {
-        if ('Notification' in window) {
-            Notification.requestPermission().then(function(result) {
-                setPermissionsWereRequested(true);
-                localStorage.setItem('permissionsWereRequested', true);
-            });
-        }
-    };
 
     useEffect(() => {
         // Toggle showTime on and off every second while inSettingsMode
@@ -169,10 +157,6 @@ function TimerContainer() {
             '9': nineDigit,
         };
 
-        // setFirstDigit(digitToSvg[firstDigit] || zeroDigit);
-        // setSecondDigit(digitToSvg[secondDigit] || zeroDigit);
-        // setThirdDigit(digitToSvg[thirdDigit] || zeroDigit);
-        // setFourthDigit(digitToSvg[fourthDigit] || zeroDigit);
         setDigits({
             firstDigit: digitToSvg[firstDigit] || zeroDigit,
             secondDigit: digitToSvg[secondDigit] || zeroDigit,
@@ -182,10 +166,6 @@ function TimerContainer() {
     };
 
     const turnDigitsOff = () => {
-        // setFirstDigit(noDigit);
-        // setSecondDigit(noDigit);
-        // setThirdDigit(noDigit);
-        // setFourthDigit(noDigit);
         setDigits({
             firstDigit: noDigit,
             secondDigit: noDigit,
@@ -196,7 +176,7 @@ function TimerContainer() {
 
     const startTimer = () => {
         setTimerIsOn(true);
-        //setTimeLeft(prev => prev - 1);
+        setTimeLeft(prev => prev - 1);
         changeButtonFunction(setLeftButtonFunction, 'stopTimer');
         changeButtonFunction(setCenterButtonFunction, 'pauseTimer');
     };
@@ -346,6 +326,15 @@ function TimerContainer() {
         }
     };
 
+    const requestPermissions = () => {
+        if ('Notification' in window) {
+            Notification.requestPermission().then(function(result) {
+                setPermissionsWereRequested(true);
+                localStorage.setItem('permissionsWereRequested', true);
+            });
+        }
+    };
+
     return (
         <Timer 
             showTime={showTime}
@@ -365,9 +354,6 @@ function TimerContainer() {
             togglePhase={togglePhase}
             increaseTimeSetting={increaseTimeSetting}
             digits={digits}
-            // secondDigit={digits.secondDigit}
-            // thirdDigit={digits.thirdDigit}
-            // fourthDigit={digits.fourthDigit}
         />
     );
 };
