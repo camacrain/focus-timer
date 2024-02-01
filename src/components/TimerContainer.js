@@ -15,10 +15,16 @@ import eightDigit from '../images/eight.png';
 import nineDigit from '../images/nine.png';
 
 function TimerContainer() {
-    const [firstDigit, setFirstDigit] = useState(zeroDigit);
-    const [secondDigit, setSecondDigit] = useState(zeroDigit);
-    const [thirdDigit, setThirdDigit] = useState(zeroDigit);
-    const [fourthDigit, setFourthDigit] = useState(zeroDigit);
+    const [digits, setDigits] = useState({
+        firstDigit: zeroDigit,
+        secondDigit: zeroDigit,
+        thirdDigit: zeroDigit,
+        fourthDigit: zeroDigit,
+      });
+    // const [firstDigit, setFirstDigit] = useState(zeroDigit);
+    // const [secondDigit, setSecondDigit] = useState(zeroDigit);
+    // const [thirdDigit, setThirdDigit] = useState(zeroDigit);
+    // const [fourthDigit, setFourthDigit] = useState(zeroDigit);
     const [workTime, setWorkTime] = useState(null);
     const [restTime, setRestTime] = useState(null);
     const [inWorkPhase, setInWorkPhase] = useState(true);
@@ -162,10 +168,16 @@ function TimerContainer() {
             '9': nineDigit,
         };
 
-        setFirstDigit(digitToSvg[firstDigit] || zeroDigit);
-        setSecondDigit(digitToSvg[secondDigit] || zeroDigit);
-        setThirdDigit(digitToSvg[thirdDigit] || zeroDigit);
-        setFourthDigit(digitToSvg[fourthDigit] || zeroDigit);
+        // setFirstDigit(digitToSvg[firstDigit] || zeroDigit);
+        // setSecondDigit(digitToSvg[secondDigit] || zeroDigit);
+        // setThirdDigit(digitToSvg[thirdDigit] || zeroDigit);
+        // setFourthDigit(digitToSvg[fourthDigit] || zeroDigit);
+        setDigits({
+            firstDigit: digitToSvg[firstDigit] || zeroDigit,
+            secondDigit: digitToSvg[secondDigit] || zeroDigit,
+            thirdDigit: digitToSvg[thirdDigit] || zeroDigit,
+            fourthDigit: digitToSvg[fourthDigit] || zeroDigit,
+          });
     };
 
     const turnDigitsOff = () => {
