@@ -6,8 +6,6 @@ import { PhaseIndicator } from './PhaseIndicator.js';
 import { Buttons } from './Buttons.js';
 import { Button } from './Button.js';
 import { Time } from './Time.js';
-import { Digit } from './Digit.js';
-import { Colon } from './Colon.js';
 import playIcon from '../images/play.png';
 import pauseIcon from '../images/pause.png';
 import stopIcon from '../images/stop.png';
