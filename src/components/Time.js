@@ -1,12 +1,13 @@
+import React from 'react';
 import { useEffect } from 'react';
 import styles from './Time.module.css';
 import colon from '../images/colon.png';
 
-export const Time = (props) => {
+export const Time = React.memo((props) => {
     useEffect(() => {
         console.log('Time rerendered');
     });
-    
+
     return (
         <div className={styles.time}>
             <div className={styles.digitContainer}>
@@ -30,4 +31,6 @@ export const Time = (props) => {
             </div>
         </div>
     );
-};
+}, (prevProps, nextProps) => {
+    return prevProps.digits === nextProps.digits;
+});
