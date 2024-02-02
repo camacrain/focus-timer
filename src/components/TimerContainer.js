@@ -139,7 +139,7 @@ function TimerContainer() {
 
     useEffect(() => {
         // Update digits when timeLeft or showTime changes
-        if (showTime) {
+       if (showTime) {
             updateDigits();
         } else {
             turnDigitsOff();
@@ -174,7 +174,7 @@ function TimerContainer() {
             secondDigit: digitToSvg[secondDigit] || zeroDigit,
             thirdDigit: digitToSvg[thirdDigit] || zeroDigit,
             fourthDigit: digitToSvg[fourthDigit] || zeroDigit,
-          });
+        });
     };
 
     const turnDigitsOff = () => {
@@ -236,6 +236,8 @@ function TimerContainer() {
 
             return !prevInWorkPhase;
         });
+
+        // setInWorkPhase(prevInWorkPhase => )
     };
 
     const toggleSettingsMode = () => {
@@ -245,7 +247,7 @@ function TimerContainer() {
             if (newValue) {
                 setInWorkPhase(prevInWorkPhase => {
                     if (!prevInWorkPhase) { togglePhase(); };
-                    return prevInWorkPhase;
+                    return true;
                 });
 
                 changeButtonFunction(setLeftButtonFunction, 'decreaseTimeSetting');
